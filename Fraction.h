@@ -1,4 +1,10 @@
 #include <string>
+
+
+// not sure why these lines are necessary, I found them on Google but they (along with a line at the bottom) fix an error
+#ifndef MY_STRUCT_H 
+#define MY_STRUCT_H
+
 struct Fraction
 {
     int numerator, denominator;
@@ -21,3 +27,5 @@ struct Fraction
 
 };
 int gcd(int a, int b); 
+
+#endif

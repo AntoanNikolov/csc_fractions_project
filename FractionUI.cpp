@@ -1,4 +1,5 @@
 #include "Fraction.h"
+#include "Fractions.cpp"
 #include <ncurses.h>
 #include <iostream>
 #include <string>
@@ -38,55 +39,71 @@ int main(){
     getmaxyx(stdscr, ymax, xmax);
     
     // y, x
-    move((ymax / 2) - 1, (xmax / 2) - 4);
+    move((ymax / 2) - 1, (xmax / 2) - 12);
     scanw("%d", &num1);
 
-    move((ymax / 2) + 1, (xmax / 2) - 4);
+    move((ymax / 2) + 1, (xmax / 2) - 12);
     scanw("%d", &den1);
 
-    move((ymax / 2), (xmax / 2));
+    move((ymax / 2), (xmax / 2) - 8);
     scanw("%c", &operateur);
 
-    move ((ymax / 2) - 1, (xmax / 2) + 4);
+    move ((ymax / 2) - 1, (xmax / 2) - 4);
     scanw("%d", &num2);
     
-    move ((ymax / 2) + 1, (xmax / 2) + 4);
+    move ((ymax / 2) + 1, (xmax / 2) - 4);
     scanw("%d", &den2);
+
+    move((ymax / 2) + 1, (xmax / 2));
+    addch('=');
+
+
 
     //Calculationismings!!!!!!!!!
     Fraction f1(num1, den1);
     Fraction f2(num2, den2);
     
     if (operateur == '+') {
-        Fraction f3 = f1 + f2;
-
-        
+        Fraction f3 = f1 + f2;  
+        resultnum = f3.numerator;
+        resultdenom = f3.denominator;
     } 
 
     else if (operateur == '-') {
-        Fraction f4 = f1 - f2;  
-        resultnum = f4.numerator;
-        resultdenom = f4.denominator;
+        Fraction f3 = f1 - f2;  
+        resultnum = f3.numerator;
+        resultdenom = f3.denominator;
     }
 
     else if (operateur == '*') {
-        Fraction f4 = f1 * f2;  
+        Fraction f3 = f1 * f2;
+
+        resultnum = f3.numerator;
+        resultdenom = f3.denominator;
     }
 
     else if (operateur == '*') {
-        Fraction f4 = f1 * f2;
+        Fraction f3 = f1 * f2;
         
-        resultnum = f4.numerator;
-        resultdenom = f4.denominator;
+        resultnum = f3.numerator;
+        resultdenom = f3.denominator;
     }
 
     else if (operateur == '/') {
-        Fraction f4 = f1 / f2;
+        Fraction f3 = f1 / f2;
         
-        resultnum = f4.numerator;
-        resultdenom = f4.denominator;
+        resultnum = f3.numerator;
+        resultdenom = f3.denominator;
     }
+
+    move((ymax / 2) + 1, (xmax / 2) + 4);
+    addch(resultnum);
+
+    move((ymax / 2) - 1, (xmax / 2) + 4);
+    addch(resultdenom);
     
+    // make it so that it wont disappear until you enter a character
+
     endwin();
     return 0;
 }
