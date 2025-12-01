@@ -29,7 +29,7 @@ int main(){
 
     initscr();
     // title
-    move(0,(xmax/2));
+    move(0, (xmax/2));
     printw("Welcome to the nCurses Calculator!");
     refresh();
     
@@ -38,23 +38,55 @@ int main(){
     getmaxyx(stdscr, ymax, xmax);
     
     // y, x
-    move(1, 0);
+    move((ymax / 2) - 1, (xmax / 2) - 4);
     scanw("%d", &num1);
 
-    move(3, 0);
+    move((ymax / 2) + 1, (xmax / 2) - 4);
     scanw("%d", &den1);
-    
 
-    move(ymax / 2, xmax / 2);
-
+    move((ymax / 2), (xmax / 2));
     scanw("%c", &operateur);
 
-    move (0, xmax - 1);
+    move ((ymax / 2) - 1, (xmax / 2) + 4);
     scanw("%d", &num2);
     
-    move (3, xmax - 1);
+    move ((ymax / 2) + 1, (xmax / 2) + 4);
     scanw("%d", &den2);
 
+    //Calculationismings!!!!!!!!!
+    Fraction f1(num1, den1);
+    Fraction f2(num2, den2);
+    
+    if (operateur == '+') {
+        Fraction f3 = f1 + f2;
+
+        
+    } 
+
+    else if (operateur == '-') {
+        Fraction f4 = f1 - f2;  
+        resultnum = f4.numerator;
+        resultdenom = f4.denominator;
+    }
+
+    else if (operateur == '*') {
+        Fraction f4 = f1 * f2;  
+    }
+
+    else if (operateur == '*') {
+        Fraction f4 = f1 * f2;
+        
+        resultnum = f4.numerator;
+        resultdenom = f4.denominator;
+    }
+
+    else if (operateur == '/') {
+        Fraction f4 = f1 / f2;
+        
+        resultnum = f4.numerator;
+        resultdenom = f4.denominator;
+    }
+    
     endwin();
     return 0;
 }
