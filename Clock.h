@@ -3,6 +3,6 @@ struct Time
 {
     int hours, minutes, seconds;
 
-    Clock(); // constructor
+    Time(); // constructor
     std::string to_string();
 };
