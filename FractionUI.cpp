@@ -46,21 +46,33 @@ int main(){
 
     // y, x
     //numerator stuff
+    bool conditionalBad = false;
     move((ymax / 2) - 1, (xmax / 2) - 12);
-    while (num1 == "") {
-        scanw("%s", &num1); 
-        for (int i = 0; i < num1.length(); i++) {
-            if (!isdigit(num1.at(i))){
-                for (int k = 0; k < num1.length(); k++) {
-                    move((ymax / 2) - 1 + k, (xmax / 2) - 12 + k);
-                    delch();
-                num1 = "";
-                }
-            }
-        }
-    }
-   
+    scanw("%s", &num1); 
+    
+    //if (user inputs a character){
+    //    die;
+    //}
+    //if input is not digit import io delete system 32
+    
+    // while (!conditionalBad) {
+    //     conditionalBad = true;
+    //     move((ymax / 2) - 1, (xmax / 2) - 12);
+    //     for (int i = 0; i < num1.length(); i++) {
+    //         if (!(isdigit(num1.at(i)))) {
+    //             for (int k = 0; k < num1.length(); k++) {
+    //                 move((ymax / 2) - 1, (xmax / 2) - 12 + k);
+    //                 delch();
+    //             }
+    //             conditionalBad = false;
+    //             num1 = "";
+    //             break;
+    //         }
+    //     }
+    //     scanw("%s", &num1); 
+    // }
 
+// id
     
 
     move((ymax / 2) + 1, (xmax / 2) - 12);
