@@ -3,20 +3,21 @@
 #include <ncurses.h>
 #include <iostream>
 #include <string>
+#include <cctype>
 
 using namespace std;
 
 int main(){
     
     int ymax, xmax;
- 
-    int num1;
-    int den1;
+    // strings are valid because our constructor handles them
+    string num1 = "";
+    string den1 = "";
     char operateur; //bc operator is a keyword lol
     
-    int num2;
-    int den2;
-    
+    string num2 = "";
+    string den2 = "";
+
     int resultnum;
     int resultdenom;
     
@@ -32,36 +33,57 @@ int main(){
     // title
     move(0, (xmax/2));
     printw("Welcome to the nCurses Calculator!");
+    
     refresh();
+    
     
     echo();
     cbreak();
     getmaxyx(stdscr, ymax, xmax);
     
+    mvprintw((ymax / 2), (xmax / 2) - 13, "%s", "---");
+    mvprintw((ymax / 2), (xmax / 2) - 5, "%s", "---");
+
     // y, x
+    //numerator stuff
     move((ymax / 2) - 1, (xmax / 2) - 12);
-    scanw("%d", &num1);
+    while (num1 == "") {
+        scanw("%s", &num1); 
+        for (int i = 0; i < num1.length(); i++) {
+            if (!isdigit(num1.at(i))){
+                for (int k = 0; k < num1.length(); k++) {
+                    move((ymax / 2) - 1 + k, (xmax / 2) - 12 + k);
+                    delch();
+                num1 = "";
+                }
+            }
+        }
+    }
+   
+
+    
 
     move((ymax / 2) + 1, (xmax / 2) - 12);
+    
     scanw("%d", &den1);
 
     move((ymax / 2), (xmax / 2) - 8);
     scanw("%c", &operateur);
-
-    move ((ymax / 2) - 1, (xmax / 2) - 4);
+    
+    move((ymax / 2) - 1, (xmax / 2) - 4);
     scanw("%d", &num2);
     
     move ((ymax / 2) + 1, (xmax / 2) - 4);
     scanw("%d", &den2);
 
-    move((ymax / 2) + 1, (xmax / 2));
+    move((ymax / 2), (xmax / 2));
     addch('=');
 
-
+    mvprintw((ymax / 2), (xmax / 2) + 2, "%s", "---");
 
     //Calculationismings!!!!!!!!!
-    Fraction f1(num1, den1);
-    Fraction f2(num2, den2);
+    Fraction f1(stoi(num1), stoi(den1));
+    Fraction f2(stoi(num2), stoi(den2));
     
     if (operateur == '+') {
         Fraction f3 = f1 + f2;  
@@ -82,13 +104,6 @@ int main(){
         resultdenom = f3.denominator;
     }
 
-    else if (operateur == '*') {
-        Fraction f3 = f1 * f2;
-        
-        resultnum = f3.numerator;
-        resultdenom = f3.denominator;
-    }
-
     else if (operateur == '/') {
         Fraction f3 = f1 / f2;
         
@@ -96,13 +111,24 @@ int main(){
         resultdenom = f3.denominator;
     }
 
-    move((ymax / 2) + 1, (xmax / 2) + 4);
-    addch(resultnum);
+    else {
+        printw("y");
+    }
+
+
+    
 
     move((ymax / 2) - 1, (xmax / 2) + 4);
-    addch(resultdenom);
+    printw(std::to_string(resultnum).c_str());
+
+    move((ymax / 2) + 1, (xmax / 2) + 4);
+    printw(std::to_string(resultdenom).c_str());
     
     // make it so that it wont disappear until you enter a character
+    move(20,20);
+    printw("Press any key to exit..."); 
+    refresh();
+    getch(); // makes program with for use
 
     endwin();
     return 0;
